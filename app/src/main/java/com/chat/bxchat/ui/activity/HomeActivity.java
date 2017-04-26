@@ -35,7 +35,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding,IHomeAtView,H
     @Override
     public int bindLayout() {
         return R.layout.activity_home;
-
     }
 
     @Override

@@ -7,32 +7,20 @@ import java.lang.ref.WeakReference;
  * Created by soffice on 2017/4/25.
  */
 
-public class BasePresenter<V> {
+public class BasePresenter<M, V> {
 
-    public BaseActivity mContext;
+    public M mModel;
+    public V mView;
+    //    public RxManager mRxManager = new RxManager();
 
-    public BasePresenter(BaseActivity context) {
-        mContext = context;
+    public void attachVM(V v, M m) {
+        this.mModel = m;
+        this.mView = v;
     }
 
-    protected Reference<V> mViewRef;
-
-    public void attachView(V view) {
-        mViewRef = new WeakReference<V>(view);
-    }
-
-    public boolean isViewAttached() {
-        return mViewRef != null && mViewRef.get() != null;
-    }
-
-    public void detachView() {
-        if (mViewRef != null) {
-            mViewRef.clear();
-            mViewRef = null;
-        }
-    }
-
-    public V getView() {
-        return mViewRef != null ? mViewRef.get() : null;
+    public void detachVM() {
+        //        mRxManager.clear();
+        mView = null;
+        mModel = null;
     }
 }

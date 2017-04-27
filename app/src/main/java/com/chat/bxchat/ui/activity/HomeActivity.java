@@ -10,20 +10,16 @@ import com.chat.bxchat.R;
 import com.chat.bxchat.databinding.ActivityHomeBinding;
 import com.chat.bxchat.ui.base.BaseActivity;
 import com.chat.bxchat.ui.base.BaseFragment;
+import com.chat.bxchat.ui.contract.HomeContract;
+import com.chat.bxchat.ui.model.HomeAtModel;
 import com.chat.bxchat.ui.presenter.HomeAtPresenter;
-import com.chat.bxchat.ui.view.IHomeAtView;
 
-public class HomeActivity extends BaseActivity<ActivityHomeBinding,IHomeAtView,HomeAtPresenter> implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends BaseActivity<ActivityHomeBinding,HomeAtPresenter,HomeAtModel> implements BottomNavigationView.OnNavigationItemSelectedListener,HomeContract.View {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewDataBinding.navigation.setOnNavigationItemSelectedListener(this);
-    }
-
-    @Override
-    protected HomeAtPresenter createPresenter() {
-        return new HomeAtPresenter(this);
     }
 
 
@@ -66,5 +62,25 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding,IHomeAtView,H
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onRequestStart() {
+        
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+
+    }
+
+    @Override
+    public void onRequestEnd() {
+
+    }
+
+    @Override
+    public void onInternetError() {
+
     }
 }

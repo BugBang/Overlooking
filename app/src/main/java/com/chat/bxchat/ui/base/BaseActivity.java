@@ -19,15 +19,11 @@ import com.chat.bxchat.app.App;
 import com.chat.bxchat.event.EventMsg;
 import com.zhy.autolayout.AutoLayoutActivity;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 /**
  * Created by soffice on 2017/4/25.
  */
 
-public abstract class BaseActivity<Q extends ViewDataBinding, V, T extends BasePresenter<V>> extends AutoLayoutActivity {
+public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePresenter, M extends BaseModel> extends AutoLayoutActivity {
 
     /**
      * 是否输出日志信息
@@ -41,19 +37,12 @@ public abstract class BaseActivity<Q extends ViewDataBinding, V, T extends BaseP
 
     private boolean isSendData; //true:带参数启动  false:不带参数
     protected Q mViewDataBinding;
-    protected T mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.activities.add(this);
         init();
-
-        mPresenter = createPresenter();
-        if (mPresenter != null) {
-            mPresenter.attachView((V) this);//因为之后所有的子类都要实现对应的View接口
-        }
-
     }
 
     private void init() {
@@ -66,7 +55,6 @@ public abstract class BaseActivity<Q extends ViewDataBinding, V, T extends BaseP
 
         //        mDialogUtil = new DialogUtil(this);
 
-        EventBus.getDefault().register(this);
         if (null != getIntent()) {
             handleIntent(getIntent());
         }
@@ -84,10 +72,6 @@ public abstract class BaseActivity<Q extends ViewDataBinding, V, T extends BaseP
         doBusiness(this);
     }
 
-    /**
-     * [用于创建Presenter和判断是否使用MVP模式(由子类实现)]
-     */
-    protected abstract T createPresenter();
 
     /**
      * [初始化Bundle参数]
@@ -285,11 +269,7 @@ public abstract class BaseActivity<Q extends ViewDataBinding, V, T extends BaseP
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.detachView();
-        }
     }
 
     /**
@@ -316,25 +296,5 @@ public abstract class BaseActivity<Q extends ViewDataBinding, V, T extends BaseP
         }
         lastClick = System.currentTimeMillis();
         return true;
-    }
-
-    @Subscribe(threadMode = ThreadMode.POSTING)
-    public void onMessageEventPostThread(EventMsg messageEvent) {
-        Log.e("PostThread", Thread.currentThread().getName());
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEventMainThread(EventMsg messageEvent) {
-        Log.e("MainThread", Thread.currentThread().getName());
-    }
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEventBackgroundThread(EventMsg messageEvent) {
-        Log.e("BackgroundThread", Thread.currentThread().getName());
-    }
-
-    @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onMessageEventAsync(EventMsg messageEvent) {
-        Log.e("Async", Thread.currentThread().getName());
     }
 }

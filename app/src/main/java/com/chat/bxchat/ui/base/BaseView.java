@@ -7,4 +7,8 @@ package com.chat.bxchat.ui.base;
  */
 
 public interface BaseView {
+    void onRequestStart();
+    void onRequestError(String msg);
+    void onRequestEnd();
+    void onInternetError();
 }

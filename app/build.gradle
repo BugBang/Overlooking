@@ -11,7 +11,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField("String", "API_BASE_URL", "\"${API_BASE_URL}\"")
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -34,6 +37,14 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
     compile 'com.zhy:autolayout:1.4.5' //https://github.com/hongyangAndroid/AndroidAutoLayout 屏幕适配
+    compile 'io.reactivex:rxjava:1.2.4'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.squareup.okio:okio:1.11.0'
 
     testCompile 'junit:junit:4.12'
 }

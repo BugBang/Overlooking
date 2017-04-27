@@ -1,8 +1,6 @@
 package com.chat.bxchat.ui.presenter;
 
-import com.chat.bxchat.ui.base.BaseActivity;
-import com.chat.bxchat.ui.base.BasePresenter;
-import com.chat.bxchat.ui.view.IHomeAtView;
+import com.chat.bxchat.ui.contract.HomeContract;
 
 /**
  * @创建者 baoxin
@@ -10,8 +8,6 @@ import com.chat.bxchat.ui.view.IHomeAtView;
  * @描述
  */
 
-public class HomeAtPresenter extends BasePresenter<IHomeAtView> {
-    public HomeAtPresenter(BaseActivity context) {
-        super(context);
-    }
+public class HomeAtPresenter extends HomeContract.Presenter {
+
 }

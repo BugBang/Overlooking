@@ -6,9 +6,6 @@ import android.content.Intent;
 
 import com.chat.bxchat.event.EventMsg;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,8 +38,9 @@ public class App extends MultiDexApplication {
     private static App mApp = null;
     private static Context mContext = null;
     public static boolean isDebug = true;
-    public static final String APP_NAME = "BXChat" ;
+    public static final String APP_NAME = "BXChat";
     public static List<Activity> activities = new LinkedList<>();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -53,7 +51,6 @@ public class App extends MultiDexApplication {
     private void init() {
         mApp = this;
         mContext = getApplicationContext();
-        EventBus.getDefault().register(this);
     }
 
     public static App getApplication() {
@@ -82,21 +79,4 @@ public class App extends MultiDexApplication {
             activity.finish();
         }
     }
-
-    @Subscribe(threadMode = ThreadMode.POSTING)
-    public void onMessageEventPostThread(EventMsg messageEvent) {
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEventMainThread(EventMsg messageEvent) {
-    }
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEventBackgroundThread(EventMsg messageEvent) {
-    }
-
-    @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onMessageEventAsync(EventMsg messageEvent) {
-    }
-
 }

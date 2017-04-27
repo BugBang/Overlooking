@@ -12,37 +12,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chat.bxchat.app.App;
-import com.chat.bxchat.event.EventMsg;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by soffice on 2017/4/25.
  */
 
-public abstract class BaseFragment<Q extends ViewDataBinding, V, T extends BasePresenter<V>> extends Fragment {
+public abstract class BaseFragment<Q extends ViewDataBinding> extends Fragment {
     private boolean isDebug;
     private String APP_NAME;
     protected final String TAG = this.getClass().getSimpleName();
     private View mContextView = null;
     protected BaseActivity mActivity;
     protected Q mViewDataBinding;
-    protected T mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
         isDebug = App.isDebug;
         APP_NAME = App.APP_NAME;
-
-        //判断是否使用MVP模式
-        mPresenter = createPresenter();
-        if (mPresenter != null) {
-            mPresenter.attachView((V) this);//因为之后所有的子类都要实现对应的View接口
-        }
     }
 
     @Override
@@ -68,10 +55,6 @@ public abstract class BaseFragment<Q extends ViewDataBinding, V, T extends BaseP
      */
     public abstract void doBusiness(Context mContext);
 
-    /**
-     * [用于创建Presenter和判断是否使用MVP模式(由子类实现)]
-     */
-    protected abstract T createPresenter();
 
     /**
      * [日志输出]
@@ -120,29 +103,5 @@ public abstract class BaseFragment<Q extends ViewDataBinding, V, T extends BaseP
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
-        if (mPresenter != null) {
-            mPresenter.detachView();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.POSTING)
-    public void onMessageEventPostThread(EventMsg messageEvent) {
-        Log.e("PostThread", Thread.currentThread().getName());
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEventMainThread(EventMsg messageEvent) {
-        Log.e("MainThread", Thread.currentThread().getName());
-    }
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEventBackgroundThread(EventMsg messageEvent) {
-        Log.e("BackgroundThread", Thread.currentThread().getName());
-    }
-
-    @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onMessageEventAsync(EventMsg messageEvent) {
-        Log.e("Async", Thread.currentThread().getName());
     }
 }

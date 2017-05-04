@@ -1,5 +1,7 @@
 package com.chat.bxchat.ui.base;
 
+import com.chat.bxchat.rx.RxManager;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -11,7 +13,7 @@ public class BasePresenter<M, V> {
 
     public M mModel;
     public V mView;
-    //    public RxManager mRxManager = new RxManager();
+    public RxManager mRxManager = new RxManager();
 
     public void attachVM(V v, M m) {
         this.mModel = m;
@@ -19,7 +21,7 @@ public class BasePresenter<M, V> {
     }
 
     public void detachVM() {
-        //        mRxManager.clear();
+        mRxManager.clear();
         mView = null;
         mModel = null;
     }

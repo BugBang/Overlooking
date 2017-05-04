@@ -10,6 +10,8 @@ import com.chat.bxchat.event.EventMsg;
 import java.util.LinkedList;
 import java.util.List;
 
+import retrofit2.http.HEAD;
+
 /**
  * ━━━━━━神兽出没━━━━━━
  * 　　　┏┓　　　┏┓
@@ -40,7 +42,6 @@ public class App extends MultiDexApplication {
     public static boolean isDebug = true;
     public static final String APP_NAME = "BXChat";
     public static List<Activity> activities = new LinkedList<>();
-
     @Override
     public void onCreate() {
         super.onCreate();

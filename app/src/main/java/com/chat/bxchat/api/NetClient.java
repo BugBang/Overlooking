@@ -18,8 +18,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetClient {
     private static final int DEFAULT_TIMEOUT = 5;
     private static Retrofit retrofit;
-
+    private static NetClient mNetworks;
     private static CommonApi mCommonApi;
+
+    public static NetClient getInstance() {
+        if (mNetworks == null) {
+            mNetworks = new NetClient();
+        }
+        return mNetworks;
+    }
 
     public CommonApi getCommonApi(){
         return mCommonApi == null ? configRetrofit(CommonApi.class) : mCommonApi;

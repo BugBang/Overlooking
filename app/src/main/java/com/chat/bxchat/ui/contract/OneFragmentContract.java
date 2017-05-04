@@ -6,20 +6,19 @@ import com.chat.bxchat.ui.base.BaseView;
 
 /**
  * @创建者 baoxin
- * @日期 2017/4/26.
+ * @日期 2017/5/4.
  * @描述
  */
 
-public interface HomeContract {
+public interface OneFragmentContract {
 
-    interface Model extends BaseModel{
+   interface Model extends BaseModel{
 
-    }
+   }
+   interface View extends BaseView{
 
-    interface View extends BaseView{
+   }
+   abstract class Presenter extends BasePresenter<Model,View>{
 
-    }
-    abstract class Presenter extends BasePresenter<Model,View>{
-
-    }
+   }
 }

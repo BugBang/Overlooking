@@ -13,6 +13,15 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField("String", "API_BASE_URL", "\"${API_BASE_URL}\"")
+
+        jackOptions {
+            enabled true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -36,6 +45,7 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
 
+    compile 'com.orhanobut:logger:1.15' //开源日志库
     compile 'com.zhy:autolayout:1.4.5' //https://github.com/hongyangAndroid/AndroidAutoLayout 屏幕适配
     compile 'io.reactivex:rxjava:1.2.4'
     compile 'io.reactivex:rxandroid:1.2.1'

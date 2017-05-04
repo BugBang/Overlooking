@@ -17,13 +17,14 @@ import android.view.inputmethod.InputMethodManager;
 import com.chat.bxchat.R;
 import com.chat.bxchat.app.App;
 import com.chat.bxchat.event.EventMsg;
+import com.chat.bxchat.util.TUtil;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 /**
  * Created by soffice on 2017/4/25.
  */
 
-public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePresenter, M extends BaseModel> extends AutoLayoutActivity {
+public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePresenter, M extends BaseModel> extends AutoLayoutActivity implements BaseView{
 
     /**
      * 是否输出日志信息
@@ -31,6 +32,8 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
     private boolean isDebug;
     private String APP_NAME;
     protected final String TAG = this.getClass().getSimpleName();
+    public P mPresenter;
+    public M mModel;
 
     //    public DialogUtil mDialogUtil = null;
     public Dialog mBaseDialog = null;
@@ -41,6 +44,13 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = TUtil.getT(this, 1);
+        mModel = TUtil.getT(this, 2);
+
+        if (this instanceof BaseView) {
+            mPresenter.attachVM(this, mModel);
+        }
+
         App.activities.add(this);
         init();
     }
@@ -50,7 +60,6 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
         APP_NAME = App.APP_NAME;
         Bundle bundle = getIntent().getExtras();
         initParms(bundle);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         mViewDataBinding = DataBindingUtil.setContentView(this, bindLayout());
 
         //        mDialogUtil = new DialogUtil(this);
@@ -269,6 +278,7 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
 
     @Override
     protected void onDestroy() {
+        if (mPresenter != null) mPresenter.detachVM();
         super.onDestroy();
     }
 
@@ -296,5 +306,25 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
         }
         lastClick = System.currentTimeMillis();
         return true;
+    }
+
+    @Override
+    public void onRequestStart() {
+
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+
+    }
+
+    @Override
+    public void onRequestEnd() {
+
+    }
+
+    @Override
+    public void onInternetError() {
+
     }
 }

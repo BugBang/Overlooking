@@ -41,11 +41,6 @@ public class OneFragment extends BaseFragment<FragmentOneBinding,OneFragmentAtPr
         return R.layout.fragment_one;
     }
 
-
-    public UserEntity click(){
-        Logger.i("clickclickclickclickclickclickclickclickclickclickclickclickclickclickclick");
-        return new UserEntity();
-    }
     @Override
     public void doBusiness(Context mContext) {
         UserEntity userEntity = new UserEntity();

@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chat.bxchat.R;
 import com.chat.bxchat.adapter.HomeActivityViewPagerAdapter;
+import com.chat.bxchat.click.NavigationViewClick;
 import com.chat.bxchat.databinding.ActivityHomeBinding;
 import com.chat.bxchat.ui.base.BaseActivity;
 import com.chat.bxchat.ui.base.BaseFragment;
@@ -17,7 +20,7 @@ import com.chat.bxchat.ui.fragment.TwoFragment;
 import com.chat.bxchat.ui.model.HomeAtModel;
 import com.chat.bxchat.ui.presenter.HomeAtPresenter;
 
-public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeAtPresenter, HomeAtModel> {
+public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeAtPresenter, HomeAtModel> implements NavigationViewClick{
 
     private MenuItem menuItem;
 
@@ -38,6 +41,12 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeAtPresen
 
     @Override
     public void doBusiness(Context mContext) {
+        mViewDataBinding.navView.getHeaderView(0).findViewById(R.id.ll_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showLongToast("onClick");
+            }
+        });
         mViewDataBinding.vpContent.setOffscreenPageLimit(2);
         mViewDataBinding.navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -104,4 +113,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeAtPresen
         return null;
     }
 
+    @Override
+    public void clickLogin() {
+
+    }
 }

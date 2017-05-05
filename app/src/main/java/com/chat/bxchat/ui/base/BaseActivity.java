@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,13 +21,14 @@ import com.chat.bxchat.R;
 import com.chat.bxchat.app.App;
 import com.chat.bxchat.event.EventMsg;
 import com.chat.bxchat.util.TUtil;
+import com.orhanobut.logger.Logger;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 /**
  * Created by soffice on 2017/4/25.
  */
 
-public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePresenter, M extends BaseModel> extends AutoLayoutActivity implements BaseView{
+public abstract class BaseActivity<Q extends ViewDataBinding, P extends BasePresenter, M extends BaseModel> extends AutoLayoutActivity implements BaseView {
 
     /**
      * 是否输出日志信息
@@ -44,6 +48,7 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        $log("-------------------------------> onCreate : " + this.getClass().getSimpleName());
         mPresenter = TUtil.getT(this, 1);
         mModel = TUtil.getT(this, 2);
 
@@ -272,13 +277,34 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
     }
 
     @Override
+    protected void onStart() {
+        $log("-------------------------------> onStart : " + this.getClass().getSimpleName());
+        super.onStart();
+    }
+
+    @Override
     protected void onResume() {
+        $log("-------------------------------> onResume : " + this.getClass().getSimpleName());
         super.onResume();
     }
 
     @Override
+    protected void onPause() {
+        $log("-------------------------------> onPause : " + this.getClass().getSimpleName());
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        $log("-------------------------------> onStop : " + this.getClass().getSimpleName());
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
-        if (mPresenter != null) mPresenter.detachVM();
+        $log("-------------------------------> onDestroy : " + this.getClass().getSimpleName());
+        if (mPresenter != null)
+            mPresenter.detachVM();
         super.onDestroy();
     }
 
@@ -310,21 +336,29 @@ public abstract class BaseActivity<Q extends ViewDataBinding,P extends BasePrese
 
     @Override
     public void onRequestStart() {
-
+        $log("--------------------------------->onRequestStart");
     }
 
     @Override
     public void onRequestError(String msg) {
-
+        $log("--------------------------------->onRequestError : " + msg);
     }
 
     @Override
     public void onRequestEnd() {
-
+        $log("--------------------------------->onRequestEnd");
     }
 
     @Override
     public void onInternetError() {
+        $log("--------------------------------->onInternetError");
+    }
 
+    protected void $log(String log) {
+        if (log != null) {
+            Logger.i(log);
+        } else {
+            Logger.i("log为null");
+        }
     }
 }

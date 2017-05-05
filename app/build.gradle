@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -44,9 +44,10 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
-
-    compile 'com.orhanobut:logger:1.15' //开源日志库
-    compile 'com.zhy:autolayout:1.4.5' //https://github.com/hongyangAndroid/AndroidAutoLayout 屏幕适配
+    compile 'com.orhanobut:logger:1.15'//开源日志库
+    compile 'com.zhy:autolayout:1.4.5'//https://github.com/hongyangAndroid/AndroidAutoLayout 屏幕适配
+    compile 'com.blankj:utilcode:1.4.1'//https://github.com/Blankj/AndroidUtilCode  工具类
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.8.0@aar'//rx权限适配
     compile 'io.reactivex:rxjava:1.2.4'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -55,6 +56,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.squareup.okio:okio:1.11.0'
-
     testCompile 'junit:junit:4.12'
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
 }

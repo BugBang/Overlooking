@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 
 import com.chat.bxchat.app.App;
 import com.chat.bxchat.util.TUtil;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by soffice on 2017/4/25.
  */
 
-public abstract class BaseFragment<Q extends ViewDataBinding,P extends BasePresenter,M extends BaseModel> extends Fragment implements BaseView{
+public abstract class BaseFragment<Q extends ViewDataBinding, P extends BasePresenter, M extends BaseModel> extends Fragment implements BaseView {
     private boolean isDebug;
     private String APP_NAME;
     protected final String TAG = this.getClass().getSimpleName();
@@ -118,21 +119,29 @@ public abstract class BaseFragment<Q extends ViewDataBinding,P extends BasePrese
 
     @Override
     public void onRequestStart() {
-
+        $log("--------------------------------->onRequestStart");
     }
 
     @Override
     public void onRequestError(String msg) {
-
+        $log("--------------------------------->onRequestError : " + msg);
     }
 
     @Override
     public void onRequestEnd() {
-
+        $log("--------------------------------->onRequestEnd");
     }
 
     @Override
     public void onInternetError() {
+        $log("--------------------------------->onInternetError");
+    }
 
+    protected void $log(String log) {
+        if (log != null) {
+            Logger.i(log);
+        } else {
+            Logger.i("log为null");
+        }
     }
 }

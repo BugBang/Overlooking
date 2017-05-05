@@ -16,6 +16,6 @@ public interface CommonApi {
      * 获取启动界面图像
      * @return
      */
-    @GET("start-image/1080*1776")
+    @GET("7/prefetch-launch-images/1080*1920")
     Observable<SplashImgEntity> getSplashImg();
 }

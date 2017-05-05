@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.blankj.utilcode.util.Utils;
 import com.chat.bxchat.event.EventMsg;
 
 
@@ -52,6 +53,8 @@ public class App extends MultiDexApplication {
     private void init() {
         mApp = this;
         mContext = getApplicationContext();
+        Utils.init(mContext);
+
     }
 
     public static App getApplication() {

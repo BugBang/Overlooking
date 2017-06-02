@@ -86,7 +86,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeAtPresen
         });
         setSupportActionBar(mViewDataBinding.toolbar.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Title");
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mViewDataBinding.mainDrawer,
                 mViewDataBinding.toolbar.toolbar, R.string.open,
                 R.string.close);
